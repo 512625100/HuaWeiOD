@@ -1,49 +1,78 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class X07 {
     public static void main(String[] args) {
-//        int n = 100; // 设置要判断的最大值为100
-//
-//        System.out.println("100以内的质数有：");
-//        for (int i = 2; i <= n; i++) {
-//            if (isPrime(i)) {
-//                System.out.print(i + " ");
-//            }
-//        }
+
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入一个数字：");
+        int num = scanner.nextInt();
         int j = 0;
         int i = 1;
-        for (i = 2; i < 100; i++) {
+        ArrayList<Integer> primeNumber = new ArrayList<>();
+        for (i = 2; i < num; i++) {
             for (j = 2; j <= i; j++) {
                 if ((i % j) == 0) {
                     break;
-
                 }
             }
             if (j == i) {
-                System.out.print(i + "  ");
+                primeNumber.add(i);
             }
+        }
+        ArrayList<Integer> all = new ArrayList<>();
+        for (int n = 0 ; n < primeNumber.size() ; n++){
+            Integer i1 = primeNumber.get(n);
+            for (int m = 0 ; m < primeNumber.size() ; m++) {
+                Integer i2 = primeNumber.get(m);
+                if (i1 * i2 == num) {
+                    all.add(i1*i2);
+                    if (i1 < i2) {
+                        System.out.println(i1 + " " + i2);
+                    }
+                }
+            }
+        }
+        if (all.isEmpty()){
+            System.out.println(-1 + " " + -1);
         }
     }
 
-//    private static boolean isPrime(int num) {
-//        if (num < 2) {
-//            return false;
-//        }
-//        else if (num == 2 || num == 3) {
-//            return true;
-//        }
-//        else if (num % 6 != 1 && num % 6 != 5) {
-//            return false;
-//        }
-//        else {
-//            int sqrtNum = (int) Math.sqrt((double) num);
+}
+
+//public class Main{
 //
-//            for (int i = 5; i <= sqrtNum; i += 6) {
-//                if (num % i == 0 || num % (i + 2) == 0) {
-//                    return false;
+//    public static void main(String[] args) {
+//
+//        Scanner sc = new Scanner(System.in);
+//
+//        int n = sc.nextInt();
+//
+//        List<Integer> list = new ArrayList<>();
+//        int m = 0;
+//        /**
+//         * 本题就是求出一个数只有两个因子（1不是素数）
+//         * 遍历n求出它所有的因子
+//         */
+//        while (m!=n){   //当n==m时说明已经不能再除了，跳出循环
+//            n = m!=0? m: n;
+//            for(int i=2;i<Math.sqrt(n)+1;i++){
+//                if(n%i==0){
+//                    m = n/i;    //把商作为下次的被除数
+//                    list.add(i);    //i就是因子
+//                    break;
 //                }
 //            }
+//        }
 //
-//            return true;
+//        list.add(m);
+//
+//        if(list.size()==2){
+//            System.out.println(list.get(0)+" "+list.get(1));
+//        }else {
+//            System.out.println("-1 -1");
 //        }
 //    }
-}
+//}
 
