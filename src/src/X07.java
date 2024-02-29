@@ -11,6 +11,7 @@ public class X07 {
         int j = 0;
         int i = 1;
         ArrayList<Integer> primeNumber = new ArrayList<>();
+        // 计算输入的数字以内有哪些素数
         for (i = 2; i < num; i++) {
             for (j = 2; j <= i; j++) {
                 if ((i % j) == 0) {
@@ -22,18 +23,27 @@ public class X07 {
             }
         }
         ArrayList<Integer> all = new ArrayList<>();
+        // 遍历素数列表
         for (int n = 0 ; n < primeNumber.size() ; n++){
+            // 按照顺序获取素数列表中的元素
             Integer i1 = primeNumber.get(n);
+            // 遍历素数列表
             for (int m = 0 ; m < primeNumber.size() ; m++) {
+                // 按照顺序获取素数列表中的元素
                 Integer i2 = primeNumber.get(m);
+                // 判断两个素数相乘是否和输入的相等
                 if (i1 * i2 == num) {
+                    // 相等加入到all列表中
                     all.add(i1*i2);
+                    // 判断第一个素数是不是小于第二个素数
                     if (i1 < i2) {
+                        // 如果小于输出
                         System.out.println(i1 + " " + i2);
                     }
                 }
             }
         }
+        // 判断all列表中是否有符合题目的数值，如果为空，代表没有，输出-1 -1
         if (all.isEmpty()){
             System.out.println(-1 + " " + -1);
         }
