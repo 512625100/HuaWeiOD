@@ -7,43 +7,53 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static int[][] visited;
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int count1 = in.nextInt();
-        int count2 = in.nextInt();
-        int[] nums1 = new int[count1];
-        int sum1 = 0;
-        for (int i = 0; i < count1; i++) {
-            nums1[i] = in.nextInt();
-            sum1 += nums1[i];
-        }
-        int sum2 = 0;
-        int[] nums2 = new int[count2];
-        HashMap<Integer, Integer> num2_map = new HashMap<>();
-        for (int i = 0; i < count2; i++) {
-            nums2[i] = in.nextInt();
-            sum2 += nums2[i];
-            if(!num2_map.containsKey(nums2[i])) {
-                num2_map.put(nums2[i], 1);
-            }
+        Scanner scanner = new Scanner(System.in);
+
+        int number = scanner.nextInt();
+        int N = scanner.nextInt();
+        int X = scanner.nextInt();
+
+        int[] return_list = new int[number];
+        int[] risk_list = new int[number];
+        int[] max_cost_list = new int[number];
+
+        for (int i = 0; i < number; i++) {
+            return_list[i] = scanner.nextInt();
         }
 
-        Arrays.sort(nums1);
-        int i=0;
-        while(true){
-            if(i>=count1){
-                break;
-            } else {
-                int target = nums1[i] - (sum1-sum2)/2;
-                if (num2_map.containsKey(target)) {
-                    System.out.println(nums1[i] + " " + target);
-                    break;
+        for (int i = 0; i < number; i++) {
+            risk_list[i] = scanner.nextInt();
+        }
+
+        for (int i = 0; i < number; i++) {
+            max_cost_list[i] = scanner.nextInt();
+        }
+
+        int[] max_status = new int[number];
+        int max_return = 0;
+        int max_return_risk = 0;
+
+        for (int i = 0; i < number; i++) {
+            for (int j = i + 1; j < number; j++) {
+                if (risk_list[i] + risk_list[j] <= X) {
+                    int max_return_product_index = return_list[i] > return_list[j] ? i : j;
+                    int other_return_product_index = i + j - max_return_product_index;
+                    int max_return_cost = Math.min(N, max_cost_list[max_return_product_index]);
+                    int other_return_cost = Math.min(N - max_return_cost, max_cost_list[other_return_product_index]);
+                    int cur_return = return_list[max_return_product_index] * max_return_cost + return_list[other_return_product_index] * other_return_cost;
+                    if (cur_return > max_return) {
+                        max_return = cur_return;
+                        max_return_risk = risk_list[i] + risk_list[j];
+                        max_status[max_return_product_index] = max_return_cost;
+                        max_status[other_return_product_index] = other_return_cost;
+                    }
                 }
             }
-            i+=1;
         }
 
+        for (int i = 0; i < number; i++) {
+            System.out.print(max_status[i] + " ");
+        }
     }
-
 }
