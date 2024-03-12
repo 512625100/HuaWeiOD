@@ -41,20 +41,24 @@ public class X22 {
             }
         }
 
-        List<Map.Entry<String,Integer>> mapList = new ArrayList<>(stringListHashMap.entrySet());
-        Collections.sort(mapList, new Comparator<Map.Entry<String, Integer>>() {
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(stringListHashMap.entrySet());
+        list.sort(new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                if (o2.getValue() > o1.getValue()){
-                    return -1;
-                }else if (o2.getValue() == o1.getValue()){
-
+                // 首先按值倒序排序
+                if (o1.getValue() != o2.getValue()) {
+                    return o2.getValue() - o1.getValue();
+                } else {
+                    // 当值相等时，按键的首字母ASCII码排序
+                    return o1.getKey().charAt(0) - o2.getKey().charAt(0);
                 }
-                return 0;
             }
         });
 
-        mapList.forEach(entry -> System.out.print(entry.getKey() + " "));
+        // 输出排序后的Map
+        for (Map.Entry<String, Integer> entry : list) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
 
 //        System.out.println(stringListHashMap);
     }
