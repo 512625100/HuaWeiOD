@@ -45,21 +45,24 @@ public class X22 {
         list.sort(new Comparator<Map.Entry<String, Integer>>() {
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                System.out.println(Character.getNumericValue(o1.getKey().charAt(0)));
+                System.out.println(o1.getKey().charAt(0));
+                System.out.println(Character.getNumericValue(o2.getKey().charAt(0)));
+                System.out.println(o2.getKey().charAt(0));
                 // 首先按值倒序排序
-                if (o1.getValue() != o2.getValue()) {
+                if (o1.getValue() == o2.getValue()) {
                     return o2.getValue() - o1.getValue();
                 } else {
                     // 当值相等时，按键的首字母ASCII码排序
-                    return o1.getKey().charAt(0) - o2.getKey().charAt(0);
+                    return Character.getNumericValue(o2.getKey().charAt(0)) - Character.getNumericValue(o1.getKey().charAt(0));
                 }
             }
         });
 
         // 输出排序后的Map
         for (Map.Entry<String, Integer> entry : list) {
-            System.out.println(entry.getKey() + " : " + entry.getValue());
+            System.out.print(entry.getKey() + " ");
         }
-
 //        System.out.println(stringListHashMap);
     }
 }
